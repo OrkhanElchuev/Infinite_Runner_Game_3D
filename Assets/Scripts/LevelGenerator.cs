@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class LevelGenerator : MonoBehaviour
@@ -9,7 +10,7 @@ public class LevelGenerator : MonoBehaviour
     [SerializeField] float chunkLength;
     [SerializeField] float moveSpeed = 8f;
 
-    GameObject[] chunks = new GameObject[12];
+    List<GameObject> chunks = new List<GameObject>();
 
 
     private void Start()
@@ -32,7 +33,7 @@ public class LevelGenerator : MonoBehaviour
             // Automatically child it to chunkParent
             GameObject newChunk = Instantiate(chunkPrefab, chunkSpawnPos, Quaternion.identity, chunkParent);
 
-            chunks[i] = newChunk;
+            chunks.Add(newChunk);
         }
     }
 
@@ -55,10 +56,18 @@ public class LevelGenerator : MonoBehaviour
 
     void MoveChunks()
     {
-        for (int i = 0; i < chunks.Length; i++)
+        for (int i = 0; i < chunks.Count; i++)
         {
+            GameObject chunk = chunks[i];
+
             // Moving floor framerate independent 
             chunks[i].transform.Translate(-transform.forward * moveSpeed * Time.deltaTime);
+
+            if (chunk.transform.position.z <= Camera.main.transform.position.z - chunkLength)
+            {
+                chunks.Remove(chunk);
+                Destroy(chunk);
+            }
         }
     }
 }
