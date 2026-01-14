@@ -4,30 +4,61 @@ using UnityEngine;
 public class Chunk : MonoBehaviour
 {
     [SerializeField] GameObject fencePrefab;
+    [SerializeField] GameObject applePrefab;
+    [SerializeField] GameObject coinPrefab;
+
+    [SerializeField] float appleSpawnChance = 0.2f;
+    [SerializeField] float coinSpawnChance = 0.5f;
     [SerializeField] float[] lanes = {-2.5f, 0f, 2.5f};
+
+    List<int> availableLanes = new List<int> {0, 1, 2};
     
     void Start()
     {
-        SpawnFence();
+        SpawnFences();
+        SpawnApple();
+        SpawnCoins();
     }
 
-    void SpawnFence()
+    void InstantiateObject(GameObject thisGameObject)
     {
-        List<int> availableLanes = new List<int> {0, 1, 2};
+        int selectedLane = SelectLane();
+        Vector3 spawnPosition = new Vector3(lanes[selectedLane], transform.position.y, transform.position.z);
+        Instantiate(thisGameObject, spawnPosition, Quaternion.identity, this.transform);
+    }
+
+    int SelectLane()
+    {
+        // Find and select an available lane without an already instantiated object
+        int randomLaneIndex = Random.Range(0, availableLanes.Count);
+        int selectedLane = availableLanes[randomLaneIndex];
+        // Remove it from the list to not instantiate another object on the same lane
+        availableLanes.RemoveAt(randomLaneIndex);
+        return selectedLane;
+    }
+
+    void SpawnFences()
+    {
         int fencesToSpawn = Random.Range(0, lanes.Length);
         // Make sure there is always at least 1 available lane for a player
         for (int i = 0; i < fencesToSpawn; i++)
         {
             if (availableLanes.Count <= 0) break;
-
-            // Find and select an available lane without an already instantiated fence
-            int randomLaneIndex = Random.Range(0, availableLanes.Count);
-            int selectedLane = availableLanes[randomLaneIndex];
-            // Remove it from the list to not instantiate another fence on the same lane
-            availableLanes.RemoveAt(randomLaneIndex);
-
-            Vector3 spawnPosition = new Vector3(lanes[selectedLane], transform.position.y, transform.position.z);
-            Instantiate(fencePrefab, spawnPosition, Quaternion.identity, this.transform);
+            InstantiateObject(fencePrefab);
         }
+    }
+
+    void SpawnApple()
+    {
+        // 20 % chance to spawn an Apple
+        if (Random.value > appleSpawnChance || availableLanes.Count <= 0) return;
+        InstantiateObject(applePrefab);
+    }
+
+    void SpawnCoins()
+    {
+        // 50 % chance to spawn a Coin
+        if (Random.value > coinSpawnChance || availableLanes.Count <= 0) return;
+        InstantiateObject(coinPrefab);
     }
 }
