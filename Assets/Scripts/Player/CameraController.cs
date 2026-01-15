@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
+    [Header("References")]
     [SerializeField] ParticleSystem speedUpParticleSystem;
+
+    [Header("Camera Settings")]
     [SerializeField] float minFOV = 30f;
     [SerializeField] float maxFOV = 120f;
     [SerializeField] float zoomDuration = 1f;
