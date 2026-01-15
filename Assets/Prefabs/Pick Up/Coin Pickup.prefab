@@ -41,7 +41,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 61485341875186141}
-  - component: {fileID: 7029845485783554904}
   - component: {fileID: 8968674855839580270}
   - component: {fileID: -4013589621488977735}
   m_Layer: 0
@@ -67,18 +66,6 @@ Transform:
   - {fileID: 2300734061052561553}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7029845485783554904
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8599702205464796786}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21f93eba3c02ece4bbe3ab3306eca047, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PickUp
 --- !u!136 &8968674855839580270
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -114,6 +101,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7eaed8d334be96545bef01b1c33e7313, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Coin
+  rotationSpeed: 100
+  scoreAmount: 100
 --- !u!1001 &1351786952952390981
 PrefabInstance:
   m_ObjectHideFlags: 0

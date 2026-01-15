@@ -880,6 +880,17 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &513892337 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 707822810459014905, guid: f3afbb741f313a140b22369dfa45e52c, type: 3}
+  m_PrefabInstance: {fileID: 5712636813781915213}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: efe73484c68df4a4693f8008b5350c2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ScoreManager
 --- !u!1 &523537290
 GameObject:
   m_ObjectHideFlags: 0
@@ -6029,6 +6040,10 @@ PrefabInstance:
       propertyPath: chunkParent
       value: 
       objectReference: {fileID: 235015363}
+    - target: {fileID: 6384433978247024213, guid: fadb834232897f44ebefe719527ad8d5, type: 3}
+      propertyPath: scoreManager
+      value: 
+      objectReference: {fileID: 513892337}
     - target: {fileID: 6384433978247024213, guid: fadb834232897f44ebefe719527ad8d5, type: 3}
       propertyPath: cameraController
       value: 
