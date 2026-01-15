@@ -44,8 +44,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b49aef0060a4b646997f94e9f62e9db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LevelGenerator
+  cameraController: {fileID: 0}
   chunkPrefab: {fileID: 2963026026106183466, guid: 41852f5b9681de44b832224b475caa76, type: 3}
-  startingChunksAmount: 12
   chunkParent: {fileID: 0}
+  startingChunksAmount: 12
   chunkLength: 10
   moveSpeed: 8
+  minMoveSpeed: 5
+  maxMoveSpeed: 20
+  minGravityZ: -22
+  maxGravityZ: -2

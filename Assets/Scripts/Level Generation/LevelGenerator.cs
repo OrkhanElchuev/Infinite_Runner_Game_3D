@@ -1,16 +1,24 @@
 using System;
 using System.Collections.Generic;
+using UnityEditor.EditorTools;
 using UnityEngine;
 
 public class LevelGenerator : MonoBehaviour
 {
+    [Header("References")]
     [SerializeField] CameraController cameraController;
     [SerializeField] GameObject chunkPrefab;
-    [SerializeField] int startingChunksAmount = 12;
     [SerializeField] Transform chunkParent;
+
+    [Header("Level Settings")]
+    [SerializeField] int startingChunksAmount = 12;
+    [Tooltip("Do not change chunk length value, without updating chunk size")]
     [SerializeField] float chunkLength;
     [SerializeField] float moveSpeed = 8f;
-    [SerializeField] float minMoveSpeed = 2f;
+    [SerializeField] float minMoveSpeed = 4f;
+    [SerializeField] float maxMoveSpeed = 20f;
+    [SerializeField] float minGravityZ = -22f;
+    [SerializeField] float maxGravityZ = -2f;
 
     List<GameObject> chunks = new List<GameObject>();
 
@@ -26,19 +34,24 @@ public class LevelGenerator : MonoBehaviour
     }
 
     /* PUBLIC METHODS */
-
     public void ChangeChunkMoveSpeed(float speedAmount)
     {
-        moveSpeed += speedAmount;
+        float newMoveSpeed = moveSpeed + speedAmount;
+        // Make sure the speed doesnt go over or below the min and max values
+        newMoveSpeed = Mathf.Clamp(newMoveSpeed, minMoveSpeed, maxMoveSpeed);
 
-        if (moveSpeed < minMoveSpeed)
+        if (newMoveSpeed < minMoveSpeed)
         {
             moveSpeed = minMoveSpeed;
+
+            float newGravityZ = Physics.gravity.z - speedAmount;
+            // Make sure the gravity doesnt go over or below the min and max values
+            newGravityZ = Mathf.Clamp(newGravityZ, minGravityZ, maxGravityZ);
+            
+            // When speed is changed, adjust Z direction gravity, to avoid falling objects glitching
+            Physics.gravity = new Vector3(Physics.gravity.x, Physics.gravity.y, newGravityZ);
         }
 
-        // When speed is changed, adjust Z direction gravity, to avoid falling objects glitching
-        Physics.gravity = new Vector3(Physics.gravity.x, Physics.gravity.y, Physics.gravity.z - speedAmount);
-    
         cameraController.ChangeCameraFOV(speedAmount);
     }
 

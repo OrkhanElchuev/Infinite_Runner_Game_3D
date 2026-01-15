@@ -5616,7 +5616,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraController
   speedUpParticleSystem: {fileID: 523537293}
-  minFOV: 55
+  minFOV: 35
   maxFOV: 85
   zoomDuration: 1
   zoomSpeedModifier: 5
@@ -5711,10 +5711,6 @@ PrefabInstance:
       propertyPath: chunkParent
       value: 
       objectReference: {fileID: 235015363}
-    - target: {fileID: 6384433978247024213, guid: fadb834232897f44ebefe719527ad8d5, type: 3}
-      propertyPath: minMoveSpeed
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 6384433978247024213, guid: fadb834232897f44ebefe719527ad8d5, type: 3}
       propertyPath: cameraController
       value: 
