@@ -284,6 +284,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a1b8b7fb7879344db9f257d6fef5e4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NewMonoBehaviourScript
+  animator: {fileID: 1418514478}
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -657,6 +658,11 @@ Transform:
 --- !u!4 &1418514477 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6410221756858730007, guid: dcbc89efbe5bd174b99e07c76bd0b6bf, type: 3}
+  m_PrefabInstance: {fileID: 421859996}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &1418514478 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 1014860696115371117, guid: dcbc89efbe5bd174b99e07c76bd0b6bf, type: 3}
   m_PrefabInstance: {fileID: 421859996}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1833427783
