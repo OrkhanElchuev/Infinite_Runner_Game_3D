@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEditor.EditorTools;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class LevelGenerator : MonoBehaviour
 {
@@ -9,10 +10,10 @@ public class LevelGenerator : MonoBehaviour
     [SerializeField] CameraController cameraController;
     [SerializeField] GameObject chunkPrefab;
     [SerializeField] Transform chunkParent;
+    [SerializeField] ScoreManager scoreManager;
 
     [Header("Level Settings")]
     [SerializeField] int startingChunksAmount = 12;
-    [Tooltip("Do not change chunk length value, without updating chunk size")]
     [SerializeField] float chunkLength;
     [SerializeField] float moveSpeed = 8f;
     [SerializeField] float minMoveSpeed = 4f;
@@ -21,7 +22,7 @@ public class LevelGenerator : MonoBehaviour
     [SerializeField] float maxGravityZ = -2f;
 
     List<GameObject> chunks = new List<GameObject>();
-
+    int chunksSpawned = 0;
 
     void Start()
     {
@@ -40,18 +41,16 @@ public class LevelGenerator : MonoBehaviour
         // Make sure the speed doesnt go over or below the min and max values
         newMoveSpeed = Mathf.Clamp(newMoveSpeed, minMoveSpeed, maxMoveSpeed);
 
-        if (newMoveSpeed < minMoveSpeed)
+        if (newMoveSpeed != moveSpeed)
         {
-            moveSpeed = minMoveSpeed;
+            moveSpeed = newMoveSpeed;
 
             float newGravityZ = Physics.gravity.z - speedAmount;
             // Make sure the gravity doesnt go over or below the min and max values
             newGravityZ = Mathf.Clamp(newGravityZ, minGravityZ, maxGravityZ);
-            
             // When speed is changed, adjust Z direction gravity, to avoid falling objects glitching
             Physics.gravity = new Vector3(Physics.gravity.x, Physics.gravity.y, newGravityZ);
         }
-
         cameraController.ChangeCameraFOV(speedAmount);
     }
 
@@ -70,9 +69,12 @@ public class LevelGenerator : MonoBehaviour
 
         Vector3 chunkSpawnPos = new Vector3(transform.position.x, transform.position.y, spawnPositionZ);
         // Automatically child it to chunkParent
-        GameObject newChunk = Instantiate(chunkPrefab, chunkSpawnPos, Quaternion.identity, chunkParent);
+        GameObject newChunkGameObj = Instantiate(chunkPrefab, chunkSpawnPos, Quaternion.identity, chunkParent);
+        chunks.Add(newChunkGameObj);
+        Chunk newChunk = newChunkGameObj.GetComponent<Chunk>();
+        newChunk.Init(this, scoreManager);
 
-        chunks.Add(newChunk);
+        chunksSpawned++;
     }
 
     float CalculateSpawnPositionZ()

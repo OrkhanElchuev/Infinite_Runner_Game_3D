@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class Chunk : MonoBehaviour
 {   
@@ -16,6 +17,9 @@ public class Chunk : MonoBehaviour
     [Header("Lists")]
     [SerializeField] float[] lanes = {-2.5f, 0f, 2.5f};
 
+    LevelGenerator levelGenerator;
+    ScoreManager scoreManager;
+
     List<int> availableLanes = new List<int> {0, 1, 2};
     
     void Start()
@@ -25,11 +29,10 @@ public class Chunk : MonoBehaviour
         SpawnCoins();
     }
 
-    void InstantiateObject(GameObject thisGameObject)
+    public void Init(LevelGenerator levelGenerator, ScoreManager scoreManager)
     {
-        int selectedLane = SelectLane();
-        Vector3 spawnPosition = new Vector3(lanes[selectedLane], transform.position.y, transform.position.z);
-        Instantiate(thisGameObject, spawnPosition, Quaternion.identity, this.transform);
+        this.levelGenerator = levelGenerator;
+        this.scoreManager = scoreManager;
     }
 
     int SelectLane()
@@ -49,7 +52,11 @@ public class Chunk : MonoBehaviour
         for (int i = 0; i < fencesToSpawn; i++)
         {
             if (availableLanes.Count <= 0) break;
-            InstantiateObject(fencePrefab);
+            
+            int selectedLane = SelectLane();
+
+            Vector3 spawnPosition = new Vector3(lanes[selectedLane], transform.position.y, transform.position.z);
+            Instantiate(fencePrefab, spawnPosition, Quaternion.identity, this.transform);
         }
     }
 
@@ -57,7 +64,11 @@ public class Chunk : MonoBehaviour
     {
         // 20 % chance to spawn an Apple
         if (Random.value > appleSpawnChance || availableLanes.Count <= 0) return;
-        InstantiateObject(applePrefab);
+        int selectedLane = SelectLane();
+
+        Vector3 spawnPosition = new Vector3(lanes[selectedLane], transform.position.y, transform.position.z);
+        Apple newApple = Instantiate(applePrefab, spawnPosition, Quaternion.identity, this.transform).GetComponent<Apple>();
+        newApple.Init(levelGenerator);
     }
 
     void SpawnCoins()
@@ -75,7 +86,8 @@ public class Chunk : MonoBehaviour
         {
             float spawnPositionZ = topOfChunkZPos - (i * coinSeperationLength);
             Vector3 spawnPosition = new Vector3(lanes[selectedLane], transform.position.y, spawnPositionZ);
-            Instantiate(coinPrefab, spawnPosition, Quaternion.identity, this.transform);
+            Coin newCoin = Instantiate(coinPrefab, spawnPosition, Quaternion.identity, this.transform).GetComponent<Coin>();
+            newCoin.Init(scoreManager);
         }
     }
 }
