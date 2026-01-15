@@ -174,7 +174,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   moveSpeed: 5
-  xClamp: 3.5
+  xClamp: 3
   zClamp: 2
 --- !u!114 &306018382
 MonoBehaviour:
