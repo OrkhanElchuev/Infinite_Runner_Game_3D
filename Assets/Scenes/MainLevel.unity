@@ -6346,6 +6346,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1176927511}
     - target: {fileID: 6384433978247024213, guid: fadb834232897f44ebefe719527ad8d5, type: 3}
+      propertyPath: checkPointChunkPrefab
+      value: 
+      objectReference: {fileID: 453388961352231098, guid: cab0a26d3f952c241bd2487a972348fa, type: 3}
+    - target: {fileID: 6384433978247024213, guid: fadb834232897f44ebefe719527ad8d5, type: 3}
       propertyPath: chunkPrefabs.Array.size
       value: 8
       objectReference: {fileID: 0}
