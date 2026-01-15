@@ -6014,7 +6014,7 @@ MonoBehaviour:
   playerController: {fileID: 306018381}
   timeText: {fileID: 1387909847}
   gameOverText: {fileID: 337263621}
-  startTime: 5
+  startTime: 100
 --- !u!1 &1176927508
 GameObject:
   m_ObjectHideFlags: 0
@@ -6345,6 +6345,46 @@ PrefabInstance:
       propertyPath: cameraController
       value: 
       objectReference: {fileID: 1176927511}
+    - target: {fileID: 6384433978247024213, guid: fadb834232897f44ebefe719527ad8d5, type: 3}
+      propertyPath: checkPointChunkPrefab
+      value: 
+      objectReference: {fileID: 453388961352231098, guid: cab0a26d3f952c241bd2487a972348fa, type: 3}
+    - target: {fileID: 6384433978247024213, guid: fadb834232897f44ebefe719527ad8d5, type: 3}
+      propertyPath: chunkPrefabs.Array.size
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6384433978247024213, guid: fadb834232897f44ebefe719527ad8d5, type: 3}
+      propertyPath: 'chunkPrefabs.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2963026026106183466, guid: 41852f5b9681de44b832224b475caa76, type: 3}
+    - target: {fileID: 6384433978247024213, guid: fadb834232897f44ebefe719527ad8d5, type: 3}
+      propertyPath: 'chunkPrefabs.Array.data[1]'
+      value: 
+      objectReference: {fileID: 453388961352231098, guid: bf829be5f895598469f45902292a8673, type: 3}
+    - target: {fileID: 6384433978247024213, guid: fadb834232897f44ebefe719527ad8d5, type: 3}
+      propertyPath: 'chunkPrefabs.Array.data[2]'
+      value: 
+      objectReference: {fileID: 453388961352231098, guid: 0ab54f1f66ef23747b43bd9bb715b2fc, type: 3}
+    - target: {fileID: 6384433978247024213, guid: fadb834232897f44ebefe719527ad8d5, type: 3}
+      propertyPath: 'chunkPrefabs.Array.data[3]'
+      value: 
+      objectReference: {fileID: 453388961352231098, guid: f642752dfcfd2bd48a3f292a896e0cc6, type: 3}
+    - target: {fileID: 6384433978247024213, guid: fadb834232897f44ebefe719527ad8d5, type: 3}
+      propertyPath: 'chunkPrefabs.Array.data[4]'
+      value: 
+      objectReference: {fileID: 2963026026106183466, guid: 41852f5b9681de44b832224b475caa76, type: 3}
+    - target: {fileID: 6384433978247024213, guid: fadb834232897f44ebefe719527ad8d5, type: 3}
+      propertyPath: 'chunkPrefabs.Array.data[5]'
+      value: 
+      objectReference: {fileID: 2963026026106183466, guid: 41852f5b9681de44b832224b475caa76, type: 3}
+    - target: {fileID: 6384433978247024213, guid: fadb834232897f44ebefe719527ad8d5, type: 3}
+      propertyPath: 'chunkPrefabs.Array.data[6]'
+      value: 
+      objectReference: {fileID: 2963026026106183466, guid: 41852f5b9681de44b832224b475caa76, type: 3}
+    - target: {fileID: 6384433978247024213, guid: fadb834232897f44ebefe719527ad8d5, type: 3}
+      propertyPath: 'chunkPrefabs.Array.data[7]'
+      value: 
+      objectReference: {fileID: 2963026026106183466, guid: 41852f5b9681de44b832224b475caa76, type: 3}
     - target: {fileID: 8052780923485922621, guid: fadb834232897f44ebefe719527ad8d5, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.11089

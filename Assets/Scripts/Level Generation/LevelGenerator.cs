@@ -1,19 +1,18 @@
-using System;
 using System.Collections.Generic;
-using UnityEditor.EditorTools;
 using UnityEngine;
-using UnityEngine.SocialPlatforms.Impl;
 
 public class LevelGenerator : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] CameraController cameraController;
-    [SerializeField] GameObject chunkPrefab;
+    [SerializeField] GameObject[] chunkPrefabs;
+    [SerializeField] GameObject checkPointChunkPrefab;
     [SerializeField] Transform chunkParent;
     [SerializeField] ScoreManager scoreManager;
 
     [Header("Level Settings")]
     [SerializeField] int startingChunksAmount = 12;
+    [SerializeField] int checkpointChunkInterval = 8;
     [SerializeField] float chunkLength;
     [SerializeField] float moveSpeed = 8f;
     [SerializeField] float minMoveSpeed = 4f;
@@ -66,15 +65,31 @@ public class LevelGenerator : MonoBehaviour
     void SpawnChunk()
     {
         float spawnPositionZ = CalculateSpawnPositionZ();
-
         Vector3 chunkSpawnPos = new Vector3(transform.position.x, transform.position.y, spawnPositionZ);
+        GameObject chunkToSpawn = ChooseChunkToSpawn();
         // Automatically child it to chunkParent
-        GameObject newChunkGameObj = Instantiate(chunkPrefab, chunkSpawnPos, Quaternion.identity, chunkParent);
+        GameObject newChunkGameObj = Instantiate(chunkToSpawn, chunkSpawnPos, Quaternion.identity, chunkParent);
         chunks.Add(newChunkGameObj);
         Chunk newChunk = newChunkGameObj.GetComponent<Chunk>();
         newChunk.Init(this, scoreManager);
 
         chunksSpawned++;
+    }
+
+    private GameObject ChooseChunkToSpawn()
+    {
+        GameObject chunkToSpawn;
+
+        if (chunksSpawned % checkpointChunkInterval == 0 && chunksSpawned != 0)
+        {
+            chunkToSpawn = checkPointChunkPrefab;
+        }
+        else
+        {
+            // Choose randomly from the list of available chunks
+            chunkToSpawn = chunkPrefabs[Random.Range(0, chunkPrefabs.Length)];
+        }
+        return chunkToSpawn;
     }
 
     float CalculateSpawnPositionZ()
