@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PickUp : MonoBehaviour
+public abstract class PickUp : MonoBehaviour
 {
     [SerializeField] float rotationSpeed = 100f;
     const string playerString = "Player";
@@ -14,7 +14,10 @@ public class PickUp : MonoBehaviour
     {
         if (other.CompareTag(playerString))
         {
-            Debug.Log(other.gameObject.name);   
+            OnPickup();
+            Destroy(gameObject);  
         }
     }
+
+    protected abstract void OnPickup();
 }
