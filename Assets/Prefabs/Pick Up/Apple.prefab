@@ -101,6 +101,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a56930745627e0e4c8921bc4b805733b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Apple
+  rotationSpeed: 100
+  adjustChangeMoveSpeedAmount: 4
 --- !u!1001 &6220842719366141379
 PrefabInstance:
   m_ObjectHideFlags: 0

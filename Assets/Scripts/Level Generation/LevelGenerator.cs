@@ -41,18 +41,17 @@ public class LevelGenerator : MonoBehaviour
         // Make sure the speed doesnt go over or below the min and max values
         newMoveSpeed = Mathf.Clamp(newMoveSpeed, minMoveSpeed, maxMoveSpeed);
 
-        if (newMoveSpeed < minMoveSpeed)
+        if (newMoveSpeed != moveSpeed)
         {
-            moveSpeed = minMoveSpeed;
+            moveSpeed = newMoveSpeed;
 
             float newGravityZ = Physics.gravity.z - speedAmount;
             // Make sure the gravity doesnt go over or below the min and max values
             newGravityZ = Mathf.Clamp(newGravityZ, minGravityZ, maxGravityZ);
             // When speed is changed, adjust Z direction gravity, to avoid falling objects glitching
             Physics.gravity = new Vector3(Physics.gravity.x, Physics.gravity.y, newGravityZ);
-
-            cameraController.ChangeCameraFOV(speedAmount);
         }
+        cameraController.ChangeCameraFOV(speedAmount);
     }
 
     /* PRIVATE METHODS*/
