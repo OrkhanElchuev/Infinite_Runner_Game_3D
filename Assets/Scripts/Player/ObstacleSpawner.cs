@@ -11,12 +11,23 @@ public class ObstacleSpawner : MonoBehaviour
 
     [Header("Spawn Settings")]
     [SerializeField] float obstacleSpawnTime = 1f;
+    [SerializeField] float minObstacleSpawnTime = 0.2f;
     [SerializeField] float spawnWidth = 4f;
 
 
     void Start()
     {
        StartCoroutine(SpawnObstacleRoutine());
+    }
+
+    public void DecreaseObstacleSpawnTime(float amount)
+    {
+        obstacleSpawnTime -= amount;
+
+        if (obstacleSpawnTime <= minObstacleSpawnTime)
+        {
+            obstacleSpawnTime = minObstacleSpawnTime;
+        }
     }
 
     // Spawn obstacles with a delay indefinetely

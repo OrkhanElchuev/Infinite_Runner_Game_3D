@@ -474,6 +474,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -5903493644567102366, guid: 41852f5b9681de44b832224b475caa76, type: 3}
+      propertyPath: coinSpawnChance
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -5903493644567102366, guid: 41852f5b9681de44b832224b475caa76, type: 3}
+      propertyPath: appleSpawnChance
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 254624666145796678, guid: 41852f5b9681de44b832224b475caa76, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -568,6 +576,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Checkpoint
   checkpointTimeExtension: 5
+  obstacleDecreaseAmount: 0.1
 --- !u!65 &3725804433935605038
 BoxCollider:
   m_ObjectHideFlags: 0
