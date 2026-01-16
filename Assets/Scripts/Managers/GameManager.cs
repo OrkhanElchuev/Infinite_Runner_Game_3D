@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -7,6 +8,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] PlayerController playerController;
     [SerializeField] TMP_Text timeText;
     [SerializeField] GameObject gameOverText;
+    [SerializeField] GameObject restartButton;
     
     [Header("Settings")]
     [SerializeField] float startTime = 5f;
@@ -20,6 +22,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         timeLeft = startTime;
+        DeactivateText();
     }
 
     void Update()
@@ -30,6 +33,18 @@ public class GameManager : MonoBehaviour
     public void IncreaseTime(float amount)
     {
         timeLeft += amount;
+    }
+
+    public void RestartScene()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    void DeactivateText()
+    {
+        restartButton.SetActive(false);
+        gameOverText.SetActive(false);
     }
 
     void DecreaseTime()
@@ -51,6 +66,8 @@ public class GameManager : MonoBehaviour
         gameOver = true;
         playerController.enabled = false;
         gameOverText.SetActive(true);
+        restartButton.SetActive(true);
+
         // Create a Slow motion effect
         Time.timeScale = 0.1f;
     }
