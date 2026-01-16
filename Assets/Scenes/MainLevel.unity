@@ -10852,6 +10852,18 @@ MonoBehaviour:
   timeText: {fileID: 1387909847}
   gameOverText: {fileID: 337263621}
   startTime: 30
+--- !u!114 &1156887221
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1156887218}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa91511862e87474a8d3950ba6a7b594, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::QuitApplication
 --- !u!1 &1176927508
 GameObject:
   m_ObjectHideFlags: 0
@@ -11739,6 +11751,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1215011611448822895, guid: f3afbb741f313a140b22369dfa45e52c, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1156887219}
+    - targetCorrespondingSourceObject: {fileID: 1215011611448822895, guid: f3afbb741f313a140b22369dfa45e52c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1156887221}
   m_SourcePrefab: {fileID: 100100000, guid: f3afbb741f313a140b22369dfa45e52c, type: 3}
 --- !u!1001 &7147919569392472556
 PrefabInstance:
