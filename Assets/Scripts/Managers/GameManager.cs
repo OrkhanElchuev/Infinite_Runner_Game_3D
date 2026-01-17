@@ -1,3 +1,4 @@
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -12,6 +13,7 @@ public class GameManager : MonoBehaviour
     
     [Header("Settings")]
     [SerializeField] float startTime = 5f;
+    [SerializeField] float gameOverTextDuration = 2f;
 
     float timeLeft;
     bool gameOver = false;
@@ -41,10 +43,12 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
-    void DeactivateText()
+    IEnumerator ShowRestartAfterDelay()
     {
-        restartButton.SetActive(false);
+        yield return new WaitForSecondsRealtime(gameOverTextDuration);
+
         gameOverText.SetActive(false);
+        restartButton.SetActive(true);
     }
 
     void DecreaseTime()
@@ -61,14 +65,23 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    void DeactivateText()
+    {
+        restartButton.SetActive(false);
+        gameOverText.SetActive(false);
+    }
+
     void PlayerGameOver()
     {
         gameOver = true;
         playerController.enabled = false;
+
         gameOverText.SetActive(true);
-        restartButton.SetActive(true);
+        restartButton.SetActive(false);
 
         // Create a Slow motion effect
         Time.timeScale = 0.1f;
+
+        StartCoroutine(ShowRestartAfterDelay());
     }
 }
