@@ -1,5 +1,7 @@
+using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -7,9 +9,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] PlayerController playerController;
     [SerializeField] TMP_Text timeText;
     [SerializeField] GameObject gameOverText;
+    [SerializeField] GameObject restartButton;
     
     [Header("Settings")]
     [SerializeField] float startTime = 5f;
+    [SerializeField] float gameOverTextDuration = 2f;
 
     float timeLeft;
     bool gameOver = false;
@@ -20,6 +24,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         timeLeft = startTime;
+        DeactivateText();
     }
 
     void Update()
@@ -30,6 +35,20 @@ public class GameManager : MonoBehaviour
     public void IncreaseTime(float amount)
     {
         timeLeft += amount;
+    }
+
+    public void RestartScene()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    IEnumerator ShowRestartAfterDelay()
+    {
+        yield return new WaitForSecondsRealtime(gameOverTextDuration);
+
+        gameOverText.SetActive(false);
+        restartButton.SetActive(true);
     }
 
     void DecreaseTime()
@@ -46,12 +65,23 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    void DeactivateText()
+    {
+        restartButton.SetActive(false);
+        gameOverText.SetActive(false);
+    }
+
     void PlayerGameOver()
     {
         gameOver = true;
         playerController.enabled = false;
+
         gameOverText.SetActive(true);
+        restartButton.SetActive(false);
+
         // Create a Slow motion effect
         Time.timeScale = 0.1f;
+
+        StartCoroutine(ShowRestartAfterDelay());
     }
 }
