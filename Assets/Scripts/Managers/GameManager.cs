@@ -3,27 +3,44 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// Owns the main game state:
+/// - counts down a level timer and updates UI
+/// - triggers game over state when time reaches 0
+/// - shows "Game Over" UI, slows time, and then enables restart UI
+/// </summary>
+
 public class GameManager : MonoBehaviour
 {
     [Header("References")]
+    [Tooltip("Player controller to disable when the player loses.")]
     [SerializeField] PlayerController playerController;
+    [Tooltip("UI text that displays remaining time.")]
     [SerializeField] TMP_Text timeText;
+    [Tooltip("UI element shown immediately on game over.")]
     [SerializeField] GameObject gameOverText;
+    [Tooltip("UI element shown after a short delay to allow restart.")]
     [SerializeField] GameObject restartButton;
     
-    [Header("Settings")]
-    [SerializeField] float startTime = 5f;
+    [Header("Level Settings")]
+    [Tooltip("How long (seconds) the player has at the start of the level.")]
+    [SerializeField] float totalGameDuration = 5f;
+    [Tooltip("How long (seconds, real-time) the game over text stays before showing restart.")]
     [SerializeField] float gameOverTextDuration = 2f;
 
     float timeLeft;
     bool gameOver = false;
 
-    // Add a property
+    WaitForSecondsRealtime gameOverWait;
+
+    // Game over flag for other systems.
     public bool GameOver => gameOver;
 
     void Start()
     {
-        timeLeft = startTime;
+        timeLeft = totalGameDuration;
+        gameOverWait = new WaitForSecondsRealtime(gameOverTextDuration);
+
         DeactivateText();
     }
 
@@ -45,14 +62,16 @@ public class GameManager : MonoBehaviour
 
     IEnumerator ShowRestartAfterDelay()
     {
-        yield return new WaitForSecondsRealtime(gameOverTextDuration);
+        yield return gameOverWait;
 
-        gameOverText.SetActive(false);
-        restartButton.SetActive(true);
+        // Hide "Game Over" and enable restart UI.
+        if (gameOverText != null) gameOverText.SetActive(false);
+        if (restartButton != null) restartButton.SetActive(true);
     }
 
     void DecreaseTime()
     {
+        // Once game over is triggered, timer should stop ticking down.
         if (gameOver) return;
 
         timeLeft -= Time.deltaTime;
@@ -67,17 +86,20 @@ public class GameManager : MonoBehaviour
 
     void DeactivateText()
     {
-        restartButton.SetActive(false);
-        gameOverText.SetActive(false);
+        if (restartButton != null) restartButton.SetActive(false);
+        if (gameOverText != null) gameOverText.SetActive(false);
     }
 
     void PlayerGameOver()
     {
         gameOver = true;
-        playerController.enabled = false;
 
-        gameOverText.SetActive(true);
-        restartButton.SetActive(false);
+        // Disable player movement so input stops immediately.
+        if (playerController != null) playerController.enabled = false;
+
+        // Show game over UI (restart shows after delay).
+        if (gameOverText != null) gameOverText.SetActive(true);
+        if (restartButton != null) restartButton.SetActive(false);
 
         // Create a Slow motion effect
         Time.timeScale = 0.1f;
