@@ -10853,7 +10853,7 @@ MonoBehaviour:
   timeText: {fileID: 1387909847}
   gameOverText: {fileID: 337263621}
   restartButton: {fileID: 1779564306}
-  startTime: 30
+  totalGameDuration: 30
   gameOverTextDuration: 2
 --- !u!114 &1156887221
 MonoBehaviour:
